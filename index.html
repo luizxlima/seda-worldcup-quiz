@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEDA College — World Cup English Quiz 2026</title>
+  <meta name="description"
+    content="Test your English and World Cup knowledge! Take the SEDA College World Cup Quiz and discover how English can transform your football experience.">
+  <meta property="og:title" content="SEDA College — World Cup English Quiz 2026">
+  <meta property="og:description"
+    content="How can English transform your World Cup experience? Take the quiz and find out!">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/png" href="seda-logo.png">
+  <meta property="og:image" content="og-image.png">
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+
+<body>
+  <!-- Animated Background Particles -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="https://seda.college" class="nav-logo" target="_blank">
+        <img src="seda-logo.png" alt="SEDA College" class="nav-logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="#quiz-section">Take the Quiz</a>
+        <a href="#rules">Rules</a>
+        <a href="https://docs.google.com/document/d/16ZWbLFf1XpXmdFU7uTFE-rIVM93WvQSLQQYCm5XdzP0/edit?usp=sharing" target="_blank">Terms & Conditions</a>
+        <a href="#ranking">Ranking</a>
+        <a href="#why-english">Why English?</a>
+        <a href="#about">About</a>
+        <a href="#quiz-section" class="nav-cta">Start Now ⚽</a>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#quiz-section">Take the Quiz</a>
+      <a href="#rules">Rules</a>
+      <a href="https://docs.google.com/document/d/16ZWbLFf1XpXmdFU7uTFE-rIVM93WvQSLQQYCm5XdzP0/edit?usp=sharing" target="_blank">Terms & Conditions</a>
+      <a href="#ranking">Ranking</a>
+      <a href="#why-english">Why English?</a>
+      <a href="#about">About</a>
+      <a href="#quiz-section" class="nav-cta">Start Now ⚽</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-elements">
+      <div class="hero-circle hero-circle-1"></div>
+      <div class="hero-circle hero-circle-2"></div>
+      <div class="hero-circle hero-circle-3"></div>
+      <div class="stadium-lines"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-logo-showcase">
+        <img src="seda-logo.png" alt="SEDA College" class="hero-logo-img">
+      </div>
+      <div class="hero-badge">
+        <span class="badge-icon">🏆</span>
+        <span>FIFA World Cup 2026 Edition</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="title-line">Score Goals with</span>
+        <span class="title-highlight">Your English</span>
+        <span class="title-line">at the World Cup</span>
+      </h1>
+      <p class="hero-subtitle">
+        How well do you know football vocabulary in English?
+        Take our World Cup Quiz and discover how language can
+        unlock the ultimate football experience! ⚽🌍
+      </p>
+      <div class="hero-actions">
+        <a href="#quiz-section" class="btn btn-primary btn-glow">
+          <span>Start the Quiz</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="#why-english" class="btn btn-outline">
+          <span>Learn More</span>
+        </a>
+      </div>
+
+    </div>
+    <div class="hero-visual">
+      <div class="floating-ball">
+        <div class="ball-inner">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="ball-svg">
+            <defs>
+              <radialGradient id="ballGrad" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="50%" stop-color="#f0f0f0" />
+                <stop offset="100%" stop-color="#cccccc" />
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="100" r="95" fill="url(#ballGrad)" stroke="#333" stroke-width="1.5" />
+            <path d="M100 5 L85 35 L60 25 Z" fill="#1a1a1a" />
+            <path d="M140 25 L120 50 L150 55 Z" fill="#1a1a1a" />
+            <path d="M180 70 L160 60 L170 90 Z" fill="#1a1a1a" />
+            <path d="M195 120 L175 105 L180 140 Z" fill="#1a1a1a" />
+            <path d="M160 175 L145 150 L170 150 Z" fill="#1a1a1a" />
+            <path d="M100 195 L85 170 L115 170 Z" fill="#1a1a1a" />
+            <path d="M40 170 L50 145 L30 150 Z" fill="#1a1a1a" />
+            <path d="M10 120 L25 100 L15 90 Z" fill="#1a1a1a" />
+            <path d="M20 55 L40 60 L30 40 Z" fill="#1a1a1a" />
+            <path d="M80 80 L100 65 L120 80 L115 105 L85 105 Z" fill="#1a1a1a" />
+          </svg>
+        </div>
+        <div class="ball-shadow"></div>
+      </div>
+      <div class="floating-flags">
+        <span class="flag flag-1">🇧🇷</span>
+        <span class="flag flag-2">🇮🇪</span>
+        <span class="flag flag-3">🇺🇸</span>
+        <span class="flag flag-4">🇲🇽</span>
+        <span class="flag flag-5">🇨🇦</span>
+        <span class="flag flag-6">🇦🇷</span>
+        <span class="flag flag-7">🇬🇧</span>
+        <span class="flag flag-8">🇩🇪</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Why English Section -->
+  <section class="why-english" id="why-english">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag">Why English Matters</span>
+        <h2 class="section-title">Language is Your <span class="text-gradient">Game Changer</span></h2>
+        <p class="section-desc">Going to the World Cup is a dream. But imagine living it to the fullest — ordering food,
+          making friends from every country, understanding the chants, and feeling the real vibe of the tournament.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-delay="0">
+          <div class="feature-icon">🎙️</div>
+          <h3>Understand Live Commentary</h3>
+          <p>Follow every play, every VAR decision, and every goal celebration in English — the global language of
+            football broadcasting.</p>
+        </div>
+        <div class="feature-card" data-delay="100">
+          <div class="feature-icon">🤝</div>
+          <h3>Connect with Fans Worldwide</h3>
+          <p>Make lifelong friends from 48 nations. English is your passport to conversations in the stands, fan zones,
+            and after-parties.</p>
+        </div>
+        <div class="feature-card" data-delay="200">
+          <div class="feature-icon">🗺️</div>
+          <h3>Navigate Like a Local</h3>
+          <p>From ordering street tacos in Mexico City to catching the subway in New York — English helps you move with
+            confidence across all 16 host cities.</p>
+        </div>
+        <div class="feature-card" data-delay="300">
+          <div class="feature-icon">📱</div>
+          <h3>Access All Content</h3>
+          <p>Stats, highlights, press conferences, social media reactions — 90% of World Cup digital content is in
+            English. Don't miss out!</p>
+        </div>
+        <div class="feature-card" data-delay="400">
+          <div class="feature-icon">✈️</div>
+          <h3>Travel with Ease</h3>
+          <p>Airports, hotels, restaurants — English opens every door when you're travelling across the US, Mexico, and
+            Canada for matches.</p>
+        </div>
+        <div class="feature-card" data-delay="500">
+          <div class="feature-icon">🏟️</div>
+          <h3>Live the Full Experience</h3>
+          <p>Reading the stadium signs, understanding safety announcements, participating in fan activities — English
+            makes everything possible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rules Section -->
+  <section class="rules-section" id="rules">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag">📜 How It Works</span>
+        <h2 class="section-title">Game <span class="text-gradient">Rules</span></h2>
+        <p class="section-desc">Understand the challenge and compete for amazing prizes!</p>
+      </div>
+
+      <div class="rules-container">
+        <div class="rules-card rules-highlight">
+          <div class="rules-card-icon">🏆</div>
+          <h3>Score + Speed = Prizes!</h3>
+          <p>The player who scores the <strong>most points</strong> in the <strong>least time</strong> across all 5
+            stages wins! The faster and more accurate you are, the higher you climb on the leaderboard.</p>
+        </div>
+
+        <div class="rules-grid">
+          <div class="rules-card">
+            <div class="rules-card-icon">📅</div>
+            <h3>5 Stages</h3>
+            <p>The quiz is divided into <strong>5 themed stages</strong>. Complete each stage to unlock the next one.
+              Each round has 10 questions.</p>
+          </div>
+
+          <div class="rules-card">
+            <div class="rules-card-icon">⏱️</div>
+            <h3>20 Seconds Per Question</h3>
+            <p>You have <strong>20 seconds</strong> to answer each question. The faster you answer correctly, the better
+              your time ranking!</p>
+          </div>
+
+          <div class="rules-card">
+            <div class="rules-card-icon">📊</div>
+            <h3>Accumulated Score</h3>
+            <p>Your total score adds up across all stages. Each correct answer = 1 point. Maximum possible: <strong>50
+                points</strong> (10 per stage).</p>
+          </div>
+
+          <div class="rules-card">
+            <div class="rules-card-icon">🎁</div>
+            <h3>Prizes for Top Players</h3>
+            <p>The players with the best scores and fastest times will win <strong>exclusive prizes</strong>. More details in the terms and conditions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ranking Section -->
+  <section class="ranking-section" id="ranking">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag">🏅 Leaderboard</span>
+        <h2 class="section-title">Player <span class="text-gradient">Ranking</span></h2>
+        <p class="section-desc">See who's leading the World Cup English Quiz! Top scorers with the fastest times climb
+          the rankings.</p>
+      </div>
+      <div class="leaderboard-container" id="leaderboardTable"></div>
+    </div>
+  </section>
+
+  <!-- Quiz Section -->
+  <section class="quiz-section" id="quiz-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag">⚽ The Challenge</span>
+        <h2 class="section-title">World Cup <span class="text-gradient">English Quiz</span></h2>
+        <p class="section-desc">10 questions per stage mixing football passion with English knowledge. Complete each stage
+          to unlock the next!</p>
+      </div>
+
+      <!-- Stage Selector -->
+      <div class="stage-selector-public" id="stageSelectorPublic"></div>
+      <div class="stage-info-public" id="stageInfoPublic"></div>
+
+      <div class="quiz-container" id="quizContainer">
+        <!-- Start Screen -->
+        <div class="quiz-start" id="quizStart">
+          <div class="quiz-start-visual">
+            <div class="trophy-icon">🏆</div>
+            <div class="quiz-start-rings">
+              <div class="ring ring-1"></div>
+              <div class="ring ring-2"></div>
+              <div class="ring ring-3"></div>
+            </div>
+          </div>
+          <h3>Ready to kick off?</h3>
+          <p>Test your English and football vocabulary. Each question has 4 options and you have <strong>20
+              seconds</strong> per question. Good luck!</p>
+
+
+          <button class="btn btn-primary btn-glow btn-large" id="startQuizBtn">
+            <span>Kick Off! ⚽</span>
+          </button>
+        </div>
+
+        <!-- Registration Form (mandatory before quiz) -->
+        <div class="quiz-register hidden" id="quizRegister">
+          <div class="register-icon">📋</div>
+          <h3>Register to Play</h3>
+          <p>Fill in your details to start the World Cup English Quiz!</p>
+          <form id="registerForm" class="register-form" novalidate>
+            <div class="form-group">
+              <label for="regName">Full Name *</label>
+              <input type="text" id="regName" name="name" placeholder="Your full name" required>
+              <span class="form-error" id="errorName"></span>
+            </div>
+            <div class="form-group">
+              <label for="regCity">City *</label>
+              <input type="text" id="regCity" name="city" placeholder="Your city" required>
+              <span class="form-error" id="errorCity"></span>
+            </div>
+            <div class="form-group">
+              <label for="regEmail">Email *</label>
+              <input type="email" id="regEmail" name="email" placeholder="your@email.com" required>
+              <span class="form-error" id="errorEmail"></span>
+            </div>
+            <div class="form-group">
+              <label for="regPhone">Phone *</label>
+              <input type="tel" id="regPhone" name="phone" placeholder="+55 (00) 00000-0000" required>
+              <span class="form-error" id="errorPhone"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-glow btn-large register-submit-btn">
+              <span>Start the Quiz! ⚽</span>
+            </button>
+            <button type="button" class="btn btn-outline register-back-btn" id="registerBackBtn">
+              <span>← Back</span>
+            </button>
+          </form>
+        </div>
+
+
+
+        <!-- Quiz Active -->
+        <div class="quiz-active hidden" id="quizActive">
+          <div class="quiz-header">
+            <div class="quiz-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+              <span class="progress-text" id="progressText">1 / 10</span>
+            </div>
+            <div class="quiz-timer" id="quizTimer">
+              <svg class="timer-svg" viewBox="0 0 40 40">
+                <circle class="timer-bg" cx="20" cy="20" r="18" />
+                <circle class="timer-fill" cx="20" cy="20" r="18" id="timerCircle" />
+              </svg>
+              <span class="timer-text" id="timerText">20</span>
+            </div>
+            <div class="quiz-score">
+              <span>Score: </span>
+              <span id="currentScore">0</span>
+            </div>
+          </div>
+          <div class="quiz-question-area">
+            <div class="question-badge" id="questionBadge">Easy</div>
+            <h3 class="quiz-question" id="quizQuestion"></h3>
+            <div class="quiz-options" id="quizOptions"></div>
+          </div>
+          <div class="quiz-feedback hidden" id="quizFeedback">
+            <div class="feedback-icon" id="feedbackIcon"></div>
+            <p class="feedback-text" id="feedbackText"></p>
+          </div>
+        </div>
+
+        <!-- Quiz Results -->
+        <div class="quiz-results hidden" id="quizResults">
+          <div class="results-visual">
+            <div class="result-emoji" id="resultEmoji">🏆</div>
+            <div class="result-confetti" id="resultConfetti"></div>
+          </div>
+          <h3 class="results-title" id="resultsTitle">Amazing!</h3>
+          <div class="results-score">
+            <div class="score-circle">
+              <svg viewBox="0 0 120 120">
+                <circle class="score-bg" cx="60" cy="60" r="54" />
+                <circle class="score-fill" cx="60" cy="60" r="54" id="scoreFillCircle" />
+              </svg>
+              <div class="score-text">
+                <span class="score-number" id="finalScore">0</span>
+                <span class="score-total">/ 10</span>
+              </div>
+            </div>
+          </div>
+          <p class="results-message" id="resultsMessage"></p>
+          <div class="results-level">
+            <span class="level-badge" id="levelBadge">Beginner</span>
+            <p class="level-desc" id="levelDesc"></p>
+          </div>
+          <div class="accumulated-score-section">
+            <div class="accumulated-score-card">
+              <span class="accumulated-label">🏅 Total Accumulated Score</span>
+              <span class="accumulated-value" id="accumulatedScore">0</span>
+              <span class="accumulated-weeks" id="accumulatedWeeks">across 1 stage</span>
+            </div>
+          </div>
+          <div class="results-cta">
+            <button class="btn btn-primary btn-glow btn-large" id="nextStageBtn">
+              <span>Play Next Stage ➡️</span>
+            </button>
+            <p class="next-quiz-info" id="nextQuizInfo"></p>
+            <p class="cta-text">Want to improve your English for the World Cup?</p>
+            <a href="https://seda.college" target="_blank" class="btn btn-outline">
+              <span>Study at SEDA College 🎓</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="about">
+    <div class="section-container">
+      <div class="cta-content">
+        <div class="cta-badge">🇮🇪 SEDA College — Dublin, Ireland</div>
+        <h2>Don't just watch the World Cup.<br><span class="text-gradient">Live it in English.</span></h2>
+        <p>SEDA College has been helping students from all over the world achieve fluency in English since 2009. Whether
+          you want to travel, work, or cheer at the World Cup — we've got you covered.</p>
+        <div class="cta-features">
+          <div class="cta-feature">
+            <span>✅</span> Expert Native Teachers
+          </div>
+          <div class="cta-feature">
+            <span>✅</span> Interactive Classes
+          </div>
+          <div class="cta-feature">
+            <span>✅</span> Student Support
+          </div>
+          <div class="cta-feature">
+            <span>✅</span> Jobs Club
+          </div>
+        </div>
+        <a href="https://seda.college" target="_blank" class="btn btn-primary btn-glow btn-large">
+          <span>Discover SEDA College 🎓</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="https://seda.college" class="footer-logo-link" target="_blank">
+            <img src="seda-logo-white.png" alt="SEDA College" class="footer-logo-img">
+          </a>
+          <p>Empowering students worldwide through quality English education since 2009.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="https://seda.college" target="_blank">Official Website</a>
+          <a href="https://seda.college" target="_blank">Courses</a>
+          <a href="https://seda.college" target="_blank">Contact</a>
+        </div>
+        <div class="footer-links">
+          <h4>World Cup 2026</h4>
+          <a href="#quiz-section">Take the Quiz</a>
+          <a href="#why-english">Why English?</a>
+          <a href="#ranking">Player Ranking</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SEDA College. All rights reserved. | A campaign by SEDA College Dublin 🇮🇪</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    // 🔧 CONFIGURAÇÃO SUPABASE — substitua pelos valores do seu projeto
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+    const { createClient } = supabase;
+    window._supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  </script>
+  <script src="questions-data.js?v=3"></script>
+  <script src="quiz.js?v=4"></script>
+  <script src="main.js?v=2"></script>
+  <!-- Version: 1.0.4 -->
+</body>
+
+</html>
