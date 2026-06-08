@@ -166,11 +166,11 @@ class WorldCupQuiz {
       btn.dataset.stage = w;
 
       const stageLabels = {
-        1: "Primeira Fase",
-        2: "Segunda Fase",
-        3: "Terceira Fase",
-        4: "Quarta Fase",
-        5: "Fase Final"
+        1: window.i18n ? window.i18n.t('stage1') : 'Stage 1',
+        2: window.i18n ? window.i18n.t('stage2') : 'Stage 2',
+        3: window.i18n ? window.i18n.t('stage3') : 'Stage 3',
+        4: window.i18n ? window.i18n.t('stage4') : 'Stage 4',
+        5: window.i18n ? window.i18n.t('stage5') : 'Final Stage',
       };
       
       const stageIcons = {
@@ -316,6 +316,27 @@ class WorldCupQuiz {
       setError('regPhone', 'errorPhone', '⚠️ Please enter your real phone number');
     }
 
+    // Country validation
+    const country = document.getElementById('regCountry').value.trim();
+    const countryErrorEl = document.getElementById('errorCountry');
+    const countryInput = document.getElementById('regCountry');
+    countryInput.classList.remove('input-error');
+    if (countryErrorEl) countryErrorEl.textContent = '';
+    if (!country) {
+      countryInput.classList.add('input-error');
+      if (countryErrorEl) countryErrorEl.textContent = window.i18n ? window.i18n.t('err_country_req') : '⚠️ Please select your country';
+      valid = false;
+    }
+
+    // Terms validation
+    const terms = document.getElementById('regTerms').checked;
+    const termsErrorEl = document.getElementById('errorTerms');
+    if (termsErrorEl) termsErrorEl.textContent = '';
+    if (!terms) {
+      if (termsErrorEl) termsErrorEl.textContent = window.i18n ? window.i18n.t('err_terms') : '⚠️ You must accept the Terms & Conditions';
+      valid = false;
+    }
+
     return valid;
   }
 
@@ -326,6 +347,7 @@ class WorldCupQuiz {
     this.userData = {
       name: document.getElementById('regName').value.trim(),
       city: document.getElementById('regCity').value.trim(),
+      country: document.getElementById('regCountry').value.trim(),
       email: document.getElementById('regEmail').value.trim(),
       phone: document.getElementById('regPhone').value.trim(),
       timestamp: new Date().toISOString()
@@ -342,6 +364,7 @@ class WorldCupQuiz {
     }
     savedData.name = this.userData.name;
     savedData.city = this.userData.city;
+    savedData.country = this.userData.country;
     savedData.email = this.userData.email;
     savedData.phone = this.userData.phone;
     
@@ -662,14 +685,16 @@ class WorldCupQuiz {
     const email = (this.userData?.email || this.getRegisteredEmail() || '').toLowerCase();
     const name = this.userData?.name || '';
     const city = this.userData?.city || '';
+    const country = this.userData?.country || '';
 
     let entry = leaderboard.find(e => e.email === email);
     if (!entry) {
-      entry = { name, city, email, stages: {} };
+      entry = { name, city, country, email, stages: {} };
       leaderboard.push(entry);
     }
     if (name) entry.name = name;
     if (city) entry.city = city;
+    if (country) entry.country = country;
     entry.stages[stageNum] = { score, time: Math.round(time * 10) / 10 };
     const stageValues = Object.values(entry.stages);
     entry.totalScore = stageValues.reduce((s, w) => s + w.score, 0);
@@ -690,6 +715,7 @@ class WorldCupQuiz {
         email: entry.email,
         name: entry.name || '',
         city: entry.city || '',
+        country: entry.country || '',
         total_score: entry.totalScore || 0,
         total_time: entry.totalTime || 0,
         stages_played: entry.stagesPlayed || 0,
@@ -730,15 +756,15 @@ class WorldCupQuiz {
     try {
       const { data, error } = await sb
         .from('leaderboard')
-        .select('name, city, email, total_score, total_time, stages_played')
+        .select('name, city, country, email, total_score, total_time, stages_played')
         .order('total_score', { ascending: false })
         .order('total_time', { ascending: true })
         .limit(10);
       if (error) throw error;
-      // Normaliza nomes de campos para o formato interno
       const entries = (data || []).map(e => ({
         name: e.name,
         city: e.city,
+        country: e.country,
         email: e.email,
         totalScore: e.total_score,
         totalTime: e.total_time,
@@ -782,20 +808,23 @@ class WorldCupQuiz {
           <td class="lb-pos">${medal}</td>
           <td class="lb-name">${this.escapeHtml(entry.name || 'Player')}</td>
           <td class="lb-city">${this.escapeHtml(entry.city || '—')}</td>
+          <td class="lb-city">${this.escapeHtml(entry.country || '—')}</td>
           <td class="lb-score">${entry.totalScore || 0}</td>
           <td class="lb-time">${avgTime}</td>
         </tr>`;
     }).join('');
 
+    const t = window.i18n ? (k) => window.i18n.t(k) : (k) => k;
     container.innerHTML = `
       <table class="lb-table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Player</th>
-            <th>City</th>
-            <th>Score</th>
-            <th>Avg Time</th>
+            <th>${t('lb_pos')}</th>
+            <th>${t('lb_player')}</th>
+            <th>${t('lb_city')}</th>
+            <th>${t('lb_country')}</th>
+            <th>${t('lb_score')}</th>
+            <th>${t('lb_time')}</th>
           </tr>
         </thead>
         <tbody>${rows}</tbody>
