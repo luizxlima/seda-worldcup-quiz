@@ -452,6 +452,9 @@ class WorldCupQuiz {
     this.questionEl.textContent = q.question;
     this.feedbackEl.classList.add('hidden');
 
+    // ── RESET: limpa classes de resposta anterior antes de renderizar ──
+    this.optionsEl.innerHTML = '';
+
     const letters = ['A', 'B', 'C', 'D'];
     this.optionsEl.innerHTML = q.options.map((opt, i) => `
       <button class="quiz-option" data-index="${i}">
