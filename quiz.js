@@ -375,7 +375,7 @@ class WorldCupQuiz {
     this.saveRegisteredEmail(this.userData.email);
 
     console.log('📋 Quiz Registration:', this.userData);
-    this.sendToGoogleForms(this.userData);
+    this.sendToN8N(this.userData);
 
     // Re-render week selector now that we have an email
     this.renderWeekSelector();
@@ -395,23 +395,53 @@ class WorldCupQuiz {
     this.startQuiz();
   }
 
-  sendToGoogleForms(data) {
-    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/11-SEi5Lj76V7vgoWEbtFQafuFcEsdRAv7LbKq94PxhA/formResponse';
+  sendStageResultToN8N(score, time) {
+    const email = this.userData?.email || this.getRegisteredEmail();
+    if (!email) return;
+    const { total, stageCount } = this.getTotalScore(email);
 
-    const formData = new URLSearchParams();
-    formData.append('entry.446981245', data.name);
-    formData.append('entry.1090817718', data.city);
-    formData.append('entry.1390857829', data.email);
-    formData.append('entry.144347826', data.phone);
-
-    fetch(GOOGLE_FORM_URL, {
+    fetch('https://n8n.sedacollege.me/webhook/05e13a8d-d1de-4f7b-81e0-add2c6f81e62', {
       method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: formData.toString()
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event: 'stage_completed',
+        source: 'seda-worldcup-quiz',
+        // Lead info
+        name: this.userData?.name || '',
+        email: email,
+        city: this.userData?.city || '',
+        country: this.userData?.country || '',
+        phone: this.userData?.phone || '',
+        // Stage info
+        stage: this.currentStage,
+        stage_score: score,
+        stage_time_seconds: Math.round(time * 10) / 10,
+        // Accumulated
+        total_score: total,
+        stages_completed: stageCount,
+        // Q&A
+        answers: this.stageAnswers,
+        timestamp: new Date().toISOString()
+      })
     })
-      .then(() => console.log('✅ Data sent to Google Forms'))
-      .catch(err => console.warn('⚠️ Google Forms sync error:', err));
+      .then(() => console.log(`✅ Stage ${this.currentStage} results sent to n8n`))
+      .catch(err => console.warn('⚠️ n8n stage result error:', err));
+  }
+    fetch('https://n8n.sedacollege.me/webhook/05e13a8d-d1de-4f7b-81e0-add2c6f81e62', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: data.name,
+        city: data.city,
+        country: data.country,
+        email: data.email,
+        phone: data.phone,
+        timestamp: data.timestamp,
+        source: 'seda-worldcup-quiz'
+      })
+    })
+      .then(() => console.log('✅ Lead enviado para n8n'))
+      .catch(err => console.warn('⚠️ n8n webhook error:', err));
   }
 
   // ── Quiz ──
@@ -432,6 +462,7 @@ class WorldCupQuiz {
     this.currentQuestion = 0;
     this.score = 0;
     this.stageTime = 0;
+    this.stageAnswers = [];
 
     this.hideAllScreens();
     this.activeScreen.classList.remove('hidden');
@@ -504,8 +535,18 @@ class WorldCupQuiz {
   timeOut() {
     if (this.isAnswered) return;
     this.isAnswered = true;
-    this.stageTime += 20; // full 20s penalty
+    this.stageTime += 20;
     const q = this.questions[this.currentQuestion];
+
+    this.stageAnswers.push({
+      question_num: this.currentQuestion + 1,
+      question: q.question,
+      answer_given: null,
+      correct_answer: q.options[q.correct],
+      is_correct: false,
+      time_taken: 20
+    });
+
     const options = this.optionsEl.querySelectorAll('.quiz-option');
     options.forEach((opt, i) => {
       opt.classList.add('disabled');
@@ -525,6 +566,15 @@ class WorldCupQuiz {
     const q = this.questions[this.currentQuestion];
     const isCorrect = index === q.correct;
     const options = this.optionsEl.querySelectorAll('.quiz-option');
+
+    this.stageAnswers.push({
+      question_num: this.currentQuestion + 1,
+      question: q.question,
+      answer_given: q.options[index],
+      correct_answer: q.options[q.correct],
+      is_correct: isCorrect,
+      time_taken: Math.round(elapsed * 10) / 10
+    });
 
     options.forEach((opt, i) => {
       opt.classList.add('disabled');
@@ -642,6 +692,17 @@ class WorldCupQuiz {
     }
 
     if (this.score >= 7) this.launchConfetti();
+
+    // WhatsApp CTA
+    const waBtn = document.getElementById('whatsappBtn');
+    if (waBtn) {
+      const name = this.userData?.name || this.getRegisteredEmail() || '';
+      const msg = encodeURIComponent(`Olá! Me chamo ${name}. Concluí o Quiz da Copa do Mundo SEDA e quero garantir minha participação na campanha e concorrer aos prêmios para planejar meu intercâmbio! ✈️⚽`);
+      waBtn.href = `https://wa.me/353899893221?text=${msg}`;
+    }
+
+    // Send stage results to n8n
+    this.sendStageResultToN8N(this.score, this.stageTime);
   }
 
   goToNextStage() {
