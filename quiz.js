@@ -696,12 +696,18 @@ class WorldCupQuiz {
 
     if (this.score >= 7) this.launchConfetti();
 
-    // WhatsApp CTA
+    // WhatsApp CTA — apenas ao completar a fase 5
+    const waCta = document.getElementById('whatsappCta');
     const waBtn = document.getElementById('whatsappBtn');
-    if (waBtn) {
-      const name = this.userData?.name || this.getRegisteredEmail() || '';
-      const msg = encodeURIComponent(`Olá! Me chamo ${name}. Concluí o Quiz da Copa do Mundo SEDA e quero garantir minha participação na campanha e concorrer aos prêmios para planejar meu intercâmbio! ✈️⚽`);
-      waBtn.href = `https://wa.me/353899893221?text=${msg}`;
+    if (waCta && waBtn) {
+      if (this.currentStage === 5) {
+        const name = this.userData?.name || this.getRegisteredEmail() || '';
+        const msg = encodeURIComponent(`Olá! Me chamo ${name}. Concluí o Quiz da Copa do Mundo SEDA e quero garantir minha participação na campanha e concorrer aos prêmios para planejar meu intercâmbio! ✈️⚽`);
+        waBtn.href = `https://wa.me/353899893221?text=${msg}`;
+        waCta.style.display = 'block';
+      } else {
+        waCta.style.display = 'none';
+      }
     }
 
     // Send stage results to n8n
