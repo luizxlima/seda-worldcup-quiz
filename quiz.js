@@ -427,10 +427,13 @@ class WorldCupQuiz {
       .then(() => console.log(`✅ Stage ${this.currentStage} results sent to n8n`))
       .catch(err => console.warn('⚠️ n8n stage result error:', err));
   }
+
+  sendToN8N(data) {
     fetch('https://n8n.sedacollege.me/webhook/05e13a8d-d1de-4f7b-81e0-add2c6f81e62', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        event: 'registration',
         name: data.name,
         city: data.city,
         country: data.country,
